@@ -1,24 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import { Header } from './Components/Header'
+import { SearchBar } from './Components/Searchbar'
+import { Emoji } from './Components/Emoji'
+import React from 'react'
+import { emojiList } from './resources/emojiList'
 
+
+console.log(emojiList)
 function App() {
+  let elist_ = []
+  for (let i = 0; i < 20; i++) {
+    elist_.push(
+      <Emoji symbol={emojiList[i].symbol} title={emojiList[i].title} />
+    )
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Header />
+      <SearchBar />
+      { elist_}
+    </React.Fragment>
+
   );
 }
 
