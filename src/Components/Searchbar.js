@@ -1,22 +1,24 @@
-import React from 'react'
+import "firebase/auth";
 import '../assets/css/searchbar.css'
-export class SearchBar extends React.Component{
-    constructor(props){
-        super(props)
-        this.state = {searchText:'hehe'}
+import "firebase/firestore";
+import firebase from 'firebase/app'
+import { firebaseConfig } from '../config/firebase.config'
+import React from 'react'
+// di theo nhom
+// try{
+//     firebase.initializeApp(firebaseConfig);
+// }catch(e){
+//     console.log(e.message)
+// }
 
-        this.EnterInput = this.EnterInput.bind(this)
-    }
-    EnterInput(e){
-        // dung handle su kien on change
-        
-        this.setState({searchText:e.target.value})
-        // thay vi log cai nay thi lam gi do de no filter ra nha!!!!
-        console.log(this.state.searchText)
-    }
-    render(){
-        return (
-            <input onChange={this.EnterInput} className="full" type="text" placeholder="Enter your emoji..."/>
-        )
-    }
+// const db = firebase.firestore();
+
+
+export function SearchBar(props) {
+
+
+    return (
+        <input onChange={props.onChange} className="full" type="text" placeholder="Enter your emoji..." />
+    )
+
 }
