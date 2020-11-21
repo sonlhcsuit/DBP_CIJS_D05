@@ -1,0 +1,35 @@
+/* .header {
+    width: 100%;
+    height: 5%;
+    background-color: cyan;
+} */
+ul {
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+li {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    height: 100%;
+}
+li.nav-items{
+    float: right;
+}
+.nav-items > a{
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+li.nav-items:hover{
+   background-color: yellow;
+}
+.nav-brand > a{
+    display: block;
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+}
