@@ -1,0 +1,11 @@
+.record{
+    width: 15%;
+    height: 50%;
+    border-radius: 15%;
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2%;
+}
