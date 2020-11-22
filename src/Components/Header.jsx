@@ -1,7 +1,7 @@
 import '../assets/css/Header.css'
 
 export function Header(props) {
-    return (
+        return (
         <ul className="header border">
             <li className="nav-brand"><a href="#">Todo App</a></li>
             <li className="nav-items"><a href="#">About</a></li>
