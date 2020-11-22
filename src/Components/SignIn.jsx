@@ -12,7 +12,6 @@ export class SignIn extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
     handleSubmit(){
-        // console.log(this.state)
         login(this.state.username,this.state.password)
     }
     handleChange(e, type) {

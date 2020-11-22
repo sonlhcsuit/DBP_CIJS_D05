@@ -1,7 +1,7 @@
 import React from "react";
 import "../assets/css/Todolist.css";
 import '../Controllers/TodoControllers'
-import {getTodoOf} from '../Controllers/TodoControllers'
+import { getTodoOf, updateTodo } from '../Controllers/TodoControllers'
 function Todo(props) {
     let { title, created, content } = props
     return (
@@ -25,13 +25,14 @@ function Todo(props) {
     )
 }
 
-function Todoeditor({ id, title, created, content, saveTodo }) {
+function Todoeditor({ indx, title, created, content, saveTodo, id,userId }) {
+    console.log(id)
     return (
         <form className="todolist editor-cont">
             <div className="editor-function border">
-                <input className="button" type="button" value="SAVE" onClick={() => saveTodo(id, { title, created, content })} />
+                <input className="button" type="button" value="SAVE" onClick={() => saveTodo(indx, { title, created, content, id,userId })} />
                 {/* <input className="button" type="button" value="CANCEL" /> */}
-                <i className="fal fa-times fa-2x quit" onClick={() => saveTodo(id, null)}></i>
+                <i className="fal fa-times fa-2x quit" onClick={() => saveTodo(indx, null)}></i>
             </div>
             <div className="editor-title">
                 <input type="text" defaultValue={title} onChange={e => { title = e.target.value }} />
@@ -43,54 +44,29 @@ function Todoeditor({ id, title, created, content, saveTodo }) {
         </form>
     )
 }
-const a = [{
-    title: "This is title 1",
-    created: "02/01/2021",
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ex quidem dolorum nulla provident a officiis eos voluptatem nesciunt ab quis facilis tempora veniam nemo, ducimus magnam ratione sed, nobis optio! Voluptas nesciunt voluptate enim dolor illo labore officiis maiores voluptates eveniet! Beatae, quos reiciendis commodi sunt aliquam iure, ex nisi, veniam necessitatibus tempore eum? Est dolorum corrupti vero laudantium dolor! Nostrum alias mollitia unde, sit commodi corporis maiores odio magnam dolorem minus, vero accusamus ea doloremque obcaecati tempore excepturi sapiente repudiandae et ipsam minima sunt tenetur id. Delectus, quas aut. Vel consequuntur excepturi magni at quas delectus sint dolorum."
-}, {
-    title: "This is title 2",
-    created: "02/01/2021",
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ex quidem dolorum nulla provident a officiis eos voluptatem nesciunt ab quis facilis tempora veniam nemo, ducimus magnam ratione sed, nobis optio! Voluptas nesciunt voluptate enim dolor illo labore officiis maiores voluptates eveniet! Beatae, quos reiciendis commodi sunt aliquam iure, ex nisi, veniam necessitatibus tempore eum? Est dolorum corrupti vero laudantium dolor! Nostrum alias mollitia unde, sit commodi corporis maiores odio magnam dolorem minus, vero accusamus ea doloremque obcaecati tempore excepturi sapiente repudiandae et ipsam minima sunt tenetur id. Delectus, quas aut. Vel consequuntur excepturi magni at quas delectus sint dolorum."
-}, {
-    title: "This is title 3",
-    created: "02/01/2021",
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ex quidem dolorum nulla provident a officiis eos voluptatem nesciunt ab quis facilis tempora veniam nemo, ducimus magnam ratione sed, nobis optio! Voluptas nesciunt voluptate enim dolor illo labore officiis maiores voluptates eveniet! Beatae, quos reiciendis commodi sunt aliquam iure, ex nisi, veniam necessitatibus tempore eum? Est dolorum corrupti vero laudantium dolor! Nostrum alias mollitia unde, sit commodi corporis maiores odio magnam dolorem minus, vero accusamus ea doloremque obcaecati tempore excepturi sapiente repudiandae et ipsam minima sunt tenetur id. Delectus, quas aut. Vel consequuntur excepturi magni at quas delectus sint dolorum."
-}, {
-    title: "This is title 4",
-    created: "02/01/2021",
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ex quidem dolorum nulla provident a officiis eos voluptatem nesciunt ab quis facilis tempora veniam nemo, ducimus magnam ratione sed, nobis optio! Voluptas nesciunt voluptate enim dolor illo labore officiis maiores voluptates eveniet! Beatae, quos reiciendis commodi sunt aliquam iure, ex nisi, veniam necessitatibus tempore eum? Est dolorum corrupti vero laudantium dolor! Nostrum alias mollitia unde, sit commodi corporis maiores odio magnam dolorem minus, vero accusamus ea doloremque obcaecati tempore excepturi sapiente repudiandae et ipsam minima sunt tenetur id. Delectus, quas aut. Vel consequuntur excepturi magni at quas delectus sint dolorum."
-}, {
-    title: "This is title 5",
-    created: "02/01/2021",
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ex quidem dolorum nulla provident a officiis eos voluptatem nesciunt ab quis facilis tempora veniam nemo, ducimus magnam ratione sed, nobis optio! Voluptas nesciunt voluptate enim dolor illo labore officiis maiores voluptates eveniet! Beatae, quos reiciendis commodi sunt aliquam iure, ex nisi, veniam necessitatibus tempore eum? Est dolorum corrupti vero laudantium dolor! Nostrum alias mollitia unde, sit commodi corporis maiores odio magnam dolorem minus, vero accusamus ea doloremque obcaecati tempore excepturi sapiente repudiandae et ipsam minima sunt tenetur id. Delectus, quas aut. Vel consequuntur excepturi magni at quas delectus sint dolorum."
-}, {
-    title: "This is title 6",
-    created: "02/01/2021",
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ex quidem dolorum nulla provident a officiis eos voluptatem nesciunt ab quis facilis tempora veniam nemo, ducimus magnam ratione sed, nobis optio! Voluptas nesciunt voluptate enim dolor illo labore officiis maiores voluptates eveniet! Beatae, quos reiciendis commodi sunt aliquam iure, ex nisi, veniam necessitatibus tempore eum? Est dolorum corrupti vero laudantium dolor! Nostrum alias mollitia unde, sit commodi corporis maiores odio magnam dolorem minus, vero accusamus ea doloremque obcaecati tempore excepturi sapiente repudiandae et ipsam minima sunt tenetur id. Delectus, quas aut. Vel consequuntur excepturi magni at quas delectus sint dolorum."
-}, {
-    title: "This is title 7",
-    created: "02/01/2021",
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ex quidem dolorum nulla provident a officiis eos voluptatem nesciunt ab quis facilis tempora veniam nemo, ducimus magnam ratione sed, nobis optio! Voluptas nesciunt voluptate enim dolor illo labore officiis maiores voluptates eveniet! Beatae, quos reiciendis commodi sunt aliquam iure, ex nisi, veniam necessitatibus tempore eum? Est dolorum corrupti vero laudantium dolor! Nostrum alias mollitia unde, sit commodi corporis maiores odio magnam dolorem minus, vero accusamus ea doloremque obcaecati tempore excepturi sapiente repudiandae et ipsam minima sunt tenetur id. Delectus, quas aut. Vel consequuntur excepturi magni at quas delectus sint dolorum."
-}]
-
-
 export class Todolist extends React.Component {
     constructor(props) {
         super(props)
-        if(localStorage.userId!=undefined){
-            getTodoOf(localStorage.userId)
-            .then(todos=>{
-                console.log(todos)
-                this.setState({todos:todos})
-            })
+        this.state = {
+            userId: this.props.userId,
+            todos: []
         }
-        this.state = {todos:[]}
-        // this.state = { todos: a }
-
+        // console.log(this.props)
         this.editTodo = this.editTodo.bind(this)
         this.saveTodo = this.saveTodo.bind(this)
     }
+    componentDidMount() {
+        if (this.state.userId === undefined) return
+        getTodoOf(this.state.userId).then(data => {
+            this.setState({
+                todos: data
+            })
+        })
+    }
+    componentDidUpdate() {
+    }
     saveTodo(id, newTodo) {
+        console.log(newTodo)
         if (newTodo === null) {
             this.setState({ isEdit: false })
         } else {
@@ -100,8 +76,8 @@ export class Todolist extends React.Component {
             }
             todos[id] = newTodo
             this.setState({ todos: todos, isEdit: false })
-            console.log(this.state.todos)
         }
+        updateTodo(newTodo.id,newTodo)
     }
     editTodo(id) {
         this.setState({ isEdit: true, selectedId: id })
@@ -110,12 +86,13 @@ export class Todolist extends React.Component {
     render() {
         if (this.state.isEdit) {
             return (
-                <Todoeditor {...this.state.todos[this.state.selectedId]} id={this.state.selectedId} saveTodo={this.saveTodo} />)
+                <Todoeditor {...this.state.todos[this.state.selectedId]} indx={this.state.selectedId} saveTodo={this.saveTodo} />)
         } else {
             return (
                 // <Todoeditor {...a}/>
                 <div className="border todolist todo-cont">
                     {this.state.todos.map((todo, index) => {
+                        // console.log(todo)
                         return (
                             <Todo {...todo} key={index} edit={() => this.editTodo(index)} />
                         )
