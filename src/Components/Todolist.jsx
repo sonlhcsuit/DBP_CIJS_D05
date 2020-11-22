@@ -26,7 +26,7 @@ function Todo(props) {
 }
 
 function Todoeditor({ indx, title, created, content, saveTodo, id,userId }) {
-    console.log(id)
+    // console.log(id)
     return (
         <form className="todolist editor-cont">
             <div className="editor-function border">
@@ -66,7 +66,7 @@ export class Todolist extends React.Component {
     componentDidUpdate() {
     }
     saveTodo(id, newTodo) {
-        console.log(newTodo)
+        // console.log(newTodo)
         if (newTodo === null) {
             this.setState({ isEdit: false })
         } else {

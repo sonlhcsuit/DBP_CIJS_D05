@@ -25,7 +25,7 @@ export function login(username, password) {
         .then(querySnapshot => {
             querySnapshot.forEach(doc => {
                 let data = doc.data()
-                if (data.username === username && data.password == password) {
+                if (data.username === username && data.password === password) {
                     localStorage.setItem("userId", doc.id)
                     window.location.reload(false)
                 }
