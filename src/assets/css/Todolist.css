@@ -6,6 +6,9 @@
     overflow: scroll;
     /* background-color: teal; */
 }
+.complete{
+    text-decoration: line-through;
+}
 .todo {
     width: 45%;
     height: 20%;

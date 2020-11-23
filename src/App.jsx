@@ -4,68 +4,66 @@ import { Header } from './Components/Header'
 import { Sidebar } from './Components/Sidebar'
 import { Todolist } from './Components/Todolist'
 import { SignIn } from './Components/SignIn'
-import { UserContext } from './Contexts/UserContext'
-let avt = "https://s.luyengame.net/games/pikachu/image.jpg"
+import { SignUp } from './Components/SignUp'
+import { ForgotPassword } from './Components/ForgotPassword'
+import { getUser } from './Controllers/TodoControllers'
+
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { userId: null }
+    // always go to sign in first
+    this.state = { userId: null, at: 'signIn' }
     this.signOut = this.signOut.bind(this)
-
+    this.signUp = this.signUp.bind(this)
+    this.forgotPassword = this.forgotPassword.bind(this)
+    this.signIn = this.signIn.bind(this)
   }
-  static contextType = UserContext
-  signIn(){
-    
+  // switch to component
+  signUp() {
+    this.setState({ at: 'signUp' })
+  }
+  forgotPassword() {
+    this.setState({ at: 'forgotPassword' })
+  }
+  signIn() {
+    this.setState({ at: 'signIn' })
   }
   signOut() {
-    this.setState({userId:null})
+    this.setState({ userId: null })
     localStorage.clear()
+    window.location.reload()
   }
+  // check user logged or not, if yes, to home page, or go to sign in page
   componentDidMount() {
-    if (localStorage.getItem('userId') === undefined) {
-      this.setState({ userId: null })
+    if (localStorage.getItem('userId') === null) {
+      this.setState({ userId: null, at: 'signIn'})
     } else {
-      this.setState({ userId: localStorage.getItem('userId') })
+      getUser(localStorage.getItem('userId')).then((data => {
+        this.setState({ userId: localStorage.getItem('userId'), at: 'home', ...data })
+
+      }))
     }
   }
   render() {
-    if (this.state.userId !== null) {
-      return (
-        <div className="App">
-          <Header />
-          <div className="main">
-            <Sidebar profilePic={avt} signOut={this.signOut} />
-            <Todolist userId={this.state.userId} />
-          </div>
-        </div>
-
-      )
-    } else {
-      return (
-        <div className="App">
-          <Header />
-          <div className="main">
-            <Sidebar profilePic={avt} signOut={this.signOut} />
-            <SignIn />
-          </div>
-        </div>
-
-      )
+    // base on where you are, render appropriate component
+    let location = {
+      'signUp': <SignUp signIn={this.signIn} />,
+      'signIn': <SignIn forgotPassword={this.forgotPassword} signUp={this.signUp} />,
+      'forgotPassword': <ForgotPassword signIn={this.signIn} signUp={this.signUp} />,
+      'home': <Todolist userId={this.state.userId} />
     }
-    // return (
-    //   <UserContext.Provider value="heheh">
-    //     <div className="App">
-    //       <Header />
-    //       <div className="main">
-    //         <Sidebar profilePic={avt} signOut={this.signOut} />
-    //         {/* <UserContext.Consumer>
 
-    //         </UserContext.Consumer> */}
-    //         {/* {console.log(this.context)} */}
-    //       </div>
-    //     </div>
-    //   </UserContext.Provider>
-    // )
+    // console.log(this.state)
+    return (
+      <div className="App">
+        <Header />
+        <div className="main">
+          <Sidebar profilePic={this.state.avatar} signOut={this.signOut} />
+          {location[this.state.at]}
+        </div>
+      </div>
+
+    )
   }
 }
 

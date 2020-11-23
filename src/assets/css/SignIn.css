@@ -1,0 +1,46 @@
+.signin-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    /* border: red 1px solid; */
+}
+
+.signin-comp.title{
+    width: 30%;
+    height: 20%;
+    font-size: 35px;
+}
+.signin-comp {
+    width: 30%;
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+    /* flex-direction: row; */
+}
+.signin-comp > label {
+    font-size: 20px;
+    color: lightslategray;
+}
+.signin-comp > input {
+    width: 100%;
+    /* height: 30%; */
+    font-size: 20px;
+    padding: 5px;
+}
+.signin-comp > input[type="button"] {
+    color: black;
+    background-color: yellowgreen;
+    outline: none;
+    border: none;
+}
+.signin-comp.opt{
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    font-style: italic;
+}
+.signin-comp>small{
+    cursor: pointer;
+}

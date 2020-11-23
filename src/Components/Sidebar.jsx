@@ -1,6 +1,9 @@
 import React from 'react'
 import '../assets/css/Sidebar.css'
+import { getUser } from '../Controllers/TodoControllers'
+
 export function Sidebar(props) {
+    
     return (
         <div className="sidebar border container col">
             <div className="avatar-cont container middle">
