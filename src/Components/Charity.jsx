@@ -1,16 +1,16 @@
-import '../assets/css/Book.css'
-export function Book({ volumeInfo }) {
-    console.log(volumeInfo)
+import '../assets/css/Charity.css'
+export function Charity( project ) {
+    // console.log(project)
     return (
-        <div className="book-area border">
-            <img src={volumeInfo.imageLinks?volumeInfo.imageLinks.smallThumbnail:'http://books.google.com/books/content?id=5W-ChoTedM4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'} className="avatar" />
-            <div className="book-info">
-                <p>{volumeInfo.title}</p>
+        <div className="charity-area border">
+            <img src={project.imageLink?project.imageLink:'http://books.google.com/books/content?id=5W-ChoTedM4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'} className="avatar" />
+            <div className="charity-info">
+                <p>{project.title}</p>
+                {/* search.response.projects.project[0]. */}
+                {/* <p>{project.authors.join(', ')}</p> */}
+                <p>{project.contactName}</p>
 
-                <p>{volumeInfo.authors.join(', ')}</p>
-                <p>{volumeInfo.publisher}</p>
-
-                <a href={volumeInfo.previewLink} target="_blank">More Info</a>
+                <a href={project.contactUrl} target="_blank">More Info</a>
 
             </div>
         </div>
@@ -32,7 +32,7 @@ let data = {
     "id": "5W-ChoTedM4C",
     "etag": "CITJmUtnrAs",
     "selfLink": "https://www.googleapis.com/books/v1/volumes/5W-ChoTedM4C",
-    "volumeInfo": {
+    "project": {
         "title": "Quilting For Dummies",
         "authors": [
             "Cheryl Fall"

@@ -1,4 +1,4 @@
-.book-area{
+.charity-area{
     width: 40%;
     height: 30%;
     margin: 2% 5%;
@@ -7,7 +7,7 @@
 .avatar{
     height: 100%;
 }
-.book-info{
+.charity-info{
     flex-grow: 1;
     overflow: scroll;
     display: flex;

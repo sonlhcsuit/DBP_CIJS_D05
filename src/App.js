@@ -6,18 +6,29 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
-    // this.search = this.search.bind(this)
   }
-  // search(){
 
-  // }
   search = (e) => {
+    const apiKey = 'e03ee621-2bc3-46e1-bf40-bdfa1ac36620'
+
+    let url = `https://api.globalgiving.org/api/public/services/search/projects?api_key=${apiKey}&q=${e.target.value}`
+
     if (e.key == 'Enter') {
-      fetch(`https://www.googleapis.com/books/v1/volumes?q=${e.target.value}`)
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
         .then(res => res.json())
         .then(data => {
           console.log(data)
-          this.setState({ books: data.items })
+          this.setState({ projects: data.search.response.projects.project })
+        })
+        .catch(er=>{
+          console.log(e)
+          this.setState({projects:[]})
         })
     }
   }
@@ -25,7 +36,7 @@ class App extends React.Component {
     return (
       <div className="App border">
         <Search search={this.search} />
-        <Main books={this.state.books?this.state.books:[]} />
+        <Main projects={this.state.projects ? this.state.projects : []} />
       </div>
     );
   }

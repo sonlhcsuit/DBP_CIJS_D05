@@ -1,11 +1,10 @@
 import '../assets/css/Main.css'
-import './BookList'
-import { BookList } from './BookList'
+import { CharityList } from './CharityList'
 export function Main(props){
     console.log(props)
     return (
         <div className="main-area">
-            <BookList books={props.books}/>
+            <CharityList projects={props.projects}/>
         </div>
     )
 }
