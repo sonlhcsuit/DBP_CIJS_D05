@@ -8,4 +8,4 @@ export const firebaseConfig = {
     messagingSenderId: "588746465760",
     appId: "1:588746465760:web:62d78d2ef36d5b85e20b85",
     measurementId: "G-YN8ZCZTXBB"
-  };
+  };asdas
