@@ -1,7 +1,8 @@
-.full {
-    width: 100vw;
-    height: 30px;
+.searchbar-area{
+    width: 90%;
+    height: 5%;
     padding: 10px;
-    margin: 20px;
-    font-size: 20px;
+    align-self: center;
+    /* margin: 0 5%; */
+    outline: none;
 }

@@ -1,11 +1,10 @@
-// import logo from './logo.svg';
+import React from 'react'
 import './App.css';
 import { Header } from './Components/Header'
-import { SearchBar } from './Components/Searchbar'
-
-import React from 'react'
+import { SearchBar } from './Components/SearchBar'
 import { emojiList } from './resources/emojiList'
-import {createEmojis,filterEmoji} from './Ultis/emojiUltis'
+import { filterEmoji } from './Controllers/emojiUltis'
+import { EmojiList } from './Components/EmojiList'
 
 class App extends React.Component {
   constructor(props) {
@@ -15,17 +14,18 @@ class App extends React.Component {
     this.handleInput = this.handleInput.bind(this)
   }
 
-  handleInput(event){
-    this.setState({searchText:event.target.value})
+  handleInput(event) {
+    this.setState({ searchText: event.target.value })
   }
-  
+
   render() {
-    let elist = createEmojis(filterEmoji(this.state.searchText,emojiList))
+    let filteredEmojis = filterEmoji(this.state.searchText, emojiList)
+
     return (
       <React.Fragment>
         <Header />
         <SearchBar onChange={this.handleInput} />
-        { elist}
+        <EmojiList emojis={filteredEmojis} />
       </React.Fragment>
 
     );

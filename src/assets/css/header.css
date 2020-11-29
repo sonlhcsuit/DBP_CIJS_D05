@@ -1,4 +1,8 @@
-.red{
+.header-area{
+    width: 80%;
+    height: 5%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
     color: red;
-    text-align: center;
 }
