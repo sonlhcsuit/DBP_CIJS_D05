@@ -1,0 +1,26 @@
+.bulb-area{
+    width: 50%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+}
+.bulb-image{
+    object-fit: contain;
+    /* align-self: start; */
+    display: block;
+    height: 85%;
+}
+.btn{
+    height: 10%;
+    width: 10%;
+    align-self: center;
+    margin: 2.5%;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    background-color: #add8e6;
+}
+input:active{
+    background-color: #84bdcf;
+    /* background-color: red; */
+}
