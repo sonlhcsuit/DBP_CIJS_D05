@@ -12,15 +12,8 @@ let pokemon_data = [
   'https://assets.pokemon.com/assets/cms2/img/pokedex/full/006.png',
   'https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png',
   'https://assets.pokemon.com/assets/cms2/img/pokedex/full/008.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/002.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/003.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/005.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/006.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/008.png',
 ]
+pokemon_data = [].concat(pokemon_data,pokemon_data)
 pokemon_data = pokemon_data.map(img => {
   return {
     front: img,
