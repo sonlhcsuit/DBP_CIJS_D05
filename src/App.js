@@ -60,7 +60,7 @@ class App extends Component {
     }, 250)
   }
   componentDidUpdate() {
-    if (this.state.selected.length == 2) {
+    if (this.state.selected.length === 2) {
       this.check()
     }
   }
@@ -70,7 +70,7 @@ class App extends Component {
       let data = JSON.parse(JSON.stringify(oldState.data))
       let selected = JSON.parse(JSON.stringify(oldState.selected))
       if (!data[indx].isFinish) {
-        if (selected.indexOf(indx) == -1) {
+        if (selected.indexOf(indx) === -1) {
           selected.push(indx)
         } else {
           selected = []
