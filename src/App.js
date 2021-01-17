@@ -20,6 +20,7 @@ class App extends React.Component {
           this.setState({ books: data.items })
         })
     }
+    console.clear()
   }
   render() {
     return (
