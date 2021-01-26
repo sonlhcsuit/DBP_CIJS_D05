@@ -89,7 +89,8 @@ export class Todolist extends React.Component {
                 // <Todoeditor {...a}/>
                 <div className="border todolist todo-cont">
                     {this.state.todos.map((todo, index) => {
-                        // console.log(todo)
+                        
+                        console.log(todo)
                         return (
                             <Todo {...todo} key={index} edit={() => this.editTodo(index)} complete={() => this.completeTodo(index)} remove={() => this.removeTodo(index)} />
                         )
@@ -104,3 +105,4 @@ export class Todolist extends React.Component {
 
     }
 }
+// export {TodoList}

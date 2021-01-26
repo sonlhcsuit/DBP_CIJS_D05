@@ -40,7 +40,6 @@ class App extends React.Component {
     } else {
       getUser(localStorage.getItem('userId')).then((data => {
         this.setState({ userId: localStorage.getItem('userId'), at: 'home', ...data })
-
       }))
     }
   }
