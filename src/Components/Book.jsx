@@ -8,7 +8,7 @@ export function Book({ volumeInfo }) {
     const details = volumeInfo.previewLink || '#'
     return (
         <div className="book-cont border">
-            <div className="book-cover">
+            <div className="book-cover border">
 
                 <img src={coverImage} alt={volumeInfo.description} />
 
