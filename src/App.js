@@ -1,89 +1,71 @@
+import './App.css';
 import { Card } from './Components/Card'
 import { Component } from 'react'
-import './App.css';
-const back = 'https://upload.wikimedia.org/wikipedia/vi/3/3b/Pokemon_Trading_Card_Game_cardback.jpg'
-const finish = 'https://media.istockphoto.com/illustrations/cartoon-finish-sign-illustration-id478290143'
-let pokemon_data = [
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/002.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/003.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/005.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/006.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/008.png',
-]
-pokemon_data = [].concat(pokemon_data,pokemon_data)
-pokemon_data = pokemon_data.map(img => {
-  return {
-    front: img,
-    back: back,
-    finish: finish,
-    isUp: false,
-    isFlip: 0,
-    isFinish: false
-  }
-})
-// console.log(pokemon_data)
-
+import { makeData } from "./ultis/data";
 
 class App extends Component {
   constructor(props) {
     super(props)
-    pokemon_data.sort((a, b) => Math.random() - Math.random())
     this.state = {
-      data: pokemon_data,
+      data: makeData(),
       selected: []
     }
     this.select = this.select.bind(this)
     this.flip = this.flip.bind(this)
     this.check = this.check.bind(this)
+    this.fold = this.fold.bind(this)
+  }
+  fold(time) {
+    // time is delay time for player watching image
+    setTimeout(() => {
+      this.setState(oldState => {
+        let newState = JSON.parse(JSON.stringify(oldState))
+        newState.data = newState.data.map((pokemon) => {
+          return {
+            ...pokemon,
+            isSelected: false,
+          }
+        })
+        return newState
+      })
+    }, time)
+
   }
   check() {
-    let data = JSON.parse(JSON.stringify(this.state.data))
-    let selected = JSON.parse(JSON.stringify(this.state.selected))
-    let a = selected[0]
-    let b = selected[1]
-    // console.log(data[a],data[b])
-    setTimeout(() => {
-      if (data[a].front === data[b].front) {
-        data[a].isFinish = true
-        data[b].isFinish = true
-      } else {
-        data[a].isUp = false
-        data[b].isUp = false
+    let selected = this.state.data.filter(({ isSelected }) => isSelected === true)
+    if (selected.length === 2) {
+      if (selected[0].front === selected[1].front) {
+        console.log('match')
+        // change selected cards to finish state, not allowed to selected again
+        setTimeout(() => {
+          this.setState((oldState) => {
+            let newState = JSON.parse(JSON.stringify(oldState))
+            newState.data = newState.data.map(poke => {
+              if (poke.front === selected[0].front) {
+                poke.isFinish = true
+              }
+              return poke
+            })
+            return newState
+          })
+        },500)
       }
-      this.setState({
-        data: data,
-        selected: []
-      })
-    }, 250)
-  }
-  componentDidUpdate() {
-    if (this.state.selected.length === 2) {
-      this.check()
+      this.fold(500)
+    } else {
+      console.log('pass')
     }
   }
 
   select(indx) {
-    this.setState(oldState => {
-      let data = JSON.parse(JSON.stringify(oldState.data))
-      let selected = JSON.parse(JSON.stringify(oldState.selected))
-      if (!data[indx].isFinish) {
-        if (selected.indexOf(indx) === -1) {
-          selected.push(indx)
-        } else {
-          selected = []
-        }
-        data[indx].isUp = !data[indx].isUp
-
-        return {
-          ...oldState,
-          selected,
-          data
-        }
+    this.setState((oldState) => {
+      let newState = JSON.parse(JSON.stringify(oldState))
+      if (!newState.data[indx].isFinish) {
+        newState.data[indx].isSelected = !newState.data[indx].isSelected
       }
-    })
+      return {
+        ...newState
+      }
+    }, this.check)
   }
   flip(indx, val) {
     // console.log(`flip ${indx} ${val}`)

@@ -6,7 +6,7 @@ export function Card(props) {
     return (
         <div className="card-area " onClick={() => props.flip(props.indx, 1)}>
             <img className="card-image"
-                src={props.isFinish ? props.finish : props.isUp ? props.front : props.back}
+                src={props.isFinish ? props.finish : props.isSelected ? props.front : props.back}
                 flip={props.isFlip}
                 onAnimationEnd={() => { props.flip(props.indx, 0); props.select(props.indx) }}
                 alt="pikachu" />

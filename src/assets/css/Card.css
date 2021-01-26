@@ -23,7 +23,7 @@ input:active{
 @keyframes flip {
 
     50% {
-        transform: rotateY(180deg);
+        transform: rotateY(90deg);
     }
 
     100% {
