@@ -3,10 +3,11 @@ import './App.css';
 import { Navigation } from './Components/Navigation'
 // import { SideBar } from './Components/Sidebar'
 // import { Todolist } from './Components/TodoList'
-// import { SignIn } from './Components/SignIn'
+import { SignIn } from './Components/SignIn'
 import { SignUp } from './Components/SignUp'
 // import { ForgotPassword } from './Components/ForgotPassword'
 // import { temp } from './ultis/ultis'
+import { Modal } from './Components/Modal'
 
 class App extends React.Component {
   constructor(props) {
@@ -64,9 +65,16 @@ class App extends React.Component {
             // <SignIn/>
             <SignUp/>
           }
+          <Modal>
+            <h1>
+              sadas
+            </h1>
+          </Modal>
         </div>
       </div>
-
+      
+      
+      
     )
   }
 }

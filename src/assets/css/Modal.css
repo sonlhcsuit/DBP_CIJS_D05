@@ -1,0 +1,28 @@
+.modal-container{
+    /* Overlay */
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.10);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal {
+    width: 50%;
+    height: fit-content;
+    border: 1px solid red;
+}
+.modal-header{
+
+}
+.modal-body{
+
+}
+.modal-footer{
+
+}

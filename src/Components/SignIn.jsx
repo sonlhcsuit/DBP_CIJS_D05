@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/css/SignIn.css'
-// import { login } from '../Controllers/TodoControllers'
+import { signInUltis } from '../ultis/userUltis'
 
 export class SignIn extends React.Component {
     constructor(props) {
@@ -13,8 +13,13 @@ export class SignIn extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
     handleSubmit() {
-        console.log(this.state)
-        // login(this.state.username, this.state.password)
+        signInUltis(this.state)
+        .then(val=>{
+            alert('Sign In success')
+        })
+        .catch(er=>{
+            alert(er.message)
+        })
     }
     handleChange(e, type) {
         if (type === 'password') this.setState({ password: e.target.value })
@@ -29,11 +34,11 @@ export class SignIn extends React.Component {
                 </div>
                 <div className="signin-comp">
                     <label htmlFor="">Username</label>
-                    <input type="text" name="" id="username" onChange={(e) => this.handleChange(e, 'username')} placeholder="Enter username" />
+                    <input type="text" name="" id="username" onChange={(e) => this.handleChange(e, 'username')} placeholder="Enter your username or email" />
                 </div>
                 <div className="signin-comp">
                     <label htmlFor="">Password</label>
-                    <input type="password" name="" id="password" onInput={(e) => this.handleChange(e, 'password')} placeholder="Enter password" />
+                    <input type="password" name="" id="password" onInput={(e) => this.handleChange(e, 'password')} placeholder="Enter your password" />
                 </div>
                 <div className="signin-comp opt ">
                     <a href="/forgot" >Forgot Password?</a>
