@@ -1,27 +1,21 @@
-import logo from './logo.svg';
 import React from 'react'
 import './App.css';
 import { Searchbar } from './Components/Searchbar'
 import { Record } from './Components/Record'
-const apiKey = "4d8fb5b93d4af21d66a2948710284366";
+import { searchCity } from "./ultis/ultis";
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      cities: [
-      ]
-
+      cities: []
     }
     this.handleKeyDown = this.handleKeyDown.bind(this)
-    this.searchCity = this.searchCity.bind(this)
+
   }
-  searchCity(cityName) {
-    return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`)
-      .then(res => res.json())
-  }
+  
   handleKeyDown(e) {
-    if (e.key == 'Enter') {
-      this.searchCity(e.target.value)
+    if (e.key === 'Enter') {
+      searchCity(e.target.value)
         .then(data => {
           let cities = this.state.cities
           cities.push({
@@ -30,6 +24,9 @@ class App extends React.Component {
             status: data.weather[0].description.toUpperCase()
           })
           this.setState({ cities: cities })
+        })
+        .catch(er=>{
+          alert("City not found")
         })
     }
   }
