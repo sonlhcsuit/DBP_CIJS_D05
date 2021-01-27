@@ -4,23 +4,35 @@
     margin: 2% 5%;
     display: flex;
 }
-.avatar{
+.charity-cover{
     height: 100%;
+    width: 40%;
+    display: flex;
+}
+.charity-cover > img {
+    width: 100%;
+    align-self: center;
 }
 .charity-info{
-    flex-grow: 1;
+    width: 60%;
     overflow: scroll;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     justify-content: space-evenly;
     /* align-items: center; */
-    padding: 0px 12%;
+    padding: 0px 5%;
     
 }
-p{
+.charity-info>.charity-title{
     font-size: 25px;
+    font-weight: 600;
+    margin: 10px 0;
 }
-a{
+.charity-info>.charity-contact{
+    margin: 10px 0;
+
+}
+.charity-info > .charity-details{
     width: fit-content;
     padding: 5px;
     border: 1px lightblue solid;
