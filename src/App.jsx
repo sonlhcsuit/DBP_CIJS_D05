@@ -13,7 +13,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     // always go to sign in first
-    this.state = { userId: null, at: 'signIn' }
+    // this.state = { userId: null, at: 'signIn' }
     // this.signOut = this.signOut.bind(this)
     // this.signUp = this.signUp.bind(this)
     // this.forgotPassword = this.forgotPassword.bind(this)
@@ -65,16 +65,13 @@ class App extends React.Component {
             // <SignIn/>
             <SignUp/>
           }
-          <Modal>
-            <h1>
-              sadas
-            </h1>
-          </Modal>
+
+
         </div>
       </div>
-      
-      
-      
+
+
+
     )
   }
 }

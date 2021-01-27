@@ -28,7 +28,9 @@ export function signUpUltis({
             return data.id
         })
         .catch(error => {
-            console.error(error)
+            // console.error(error)
+            throw error
+
         })
 }
 export function signInUltis({
@@ -59,5 +61,6 @@ export function signInUltis({
         })
         .catch(error => {
             console.error(error)
+            throw error
         })
 }
