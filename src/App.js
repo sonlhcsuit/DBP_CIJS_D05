@@ -3,7 +3,7 @@ import './App.css';
 import { Header } from './Components/Header'
 import { SearchBar } from './Components/SearchBar'
 import { emojiList } from './resources/emojiList'
-import { filterEmoji } from './Controllers/emojiUltis'
+import { filterEmoji } from './ultis/ultis'
 import { EmojiList } from './Components/EmojiList'
 
 class App extends React.Component {
