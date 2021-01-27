@@ -3,7 +3,7 @@ import "../assets/css/Todolist.css";
 import '../Controllers/TodoControllers'
 import { getTodoOf, updateTodo, addTodo, removeTodo, completeTodo } from '../Controllers/TodoControllers'
 import { Todo } from './Todo'
-import { Todoeditor } from './Todoeditor'
+import { Todoeditor } from './TodoEditor'
 
 export class Todolist extends React.Component {
     constructor(props) {

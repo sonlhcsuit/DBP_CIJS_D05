@@ -1,8 +1,8 @@
 import React from 'react'
-import '../assets/css/Sidebar.css'
-import { getUser } from '../Controllers/TodoControllers'
+import '../assets/css/SideBar.css'
+// import { getUser } from '../Controllers/TodoControllers'
 
-export function Sidebar(props) {
+export function SideBar(props) {
     
     return (
         <div className="sidebar border container col">

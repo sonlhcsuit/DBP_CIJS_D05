@@ -1,4 +1,4 @@
-.signin-cont {
+.signup-cont {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,19 +7,19 @@
     height: 100%;
 }
 
-.signin-comp.title{
+.signup-comp.title{
     width: 30vw;
     height: 20%;
 }
-.signin-comp.title > h1 {
+.signup-comp.title > h1 {
     font-size: 10vh;
     font-weight: 400;
 }
-.signin-comp.title > small {
+.signup-comp.title > small {
     margin-top: 1vh;
     font-style: italic;
 }
-.signin-comp {
+.signup-comp {
     width: 30vw;
     height: 10%;
     display: flex;
@@ -28,12 +28,12 @@
     margin-top: 0.5vh;
     margin-bottom: 0.5vh;
 }
-.signin-comp > label {
+.signup-comp > label {
     margin-bottom: 1vh;
     font-size: 20px;
     color: lightslategray;
 }
-.signin-comp > input {
+.signup-comp > input {
     width: 100%;
     /* height: 30%; */
     font-size: 20px;
@@ -41,31 +41,33 @@
     margin-top: 0.5vh;
 
 }
-.signin-comp > input[type="button"] {
+.signup-comp > input[type="button"] {
     color: white;
     background-color: #0fafee;
     outline: none;
     border: none;
     cursor: pointer;
 }
-.signin-comp > input[type="button"]:hover{
+.signup-comp > input[type="button"]:hover{
     background-color: #55beee;
 }
-.signin-comp.opt{
+.signup-comp.opt{
     height: 5vh;
     align-items: center;
-    flex-direction: row-reverse;
+    flex-direction: row;
     justify-content: space-between;
     
 }
-.signin-comp.opt > a{
-    
- height: fit-content;
+.signup-comp.opt > div > input[type="checkbox"]{
+    margin-right: 0.25vw;
+}
+.signup-comp.opt > a{
+    height: fit-content;
     cursor: pointer;
     text-decoration: none;
     font-style: italic;
     color: black;
 }
-.signin-comp.opt > a:hover{
+.signup-comp.opt > a:hover{
     text-decoration: underline;
 }
