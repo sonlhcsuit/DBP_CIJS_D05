@@ -1,13 +1,14 @@
 import React from 'react'
 import './App.css';
 import { Navigation } from './Components/Navigation'
-// import { SideBar } from './Components/Sidebar'
-// import { Todolist } from './Components/TodoList'
+import { SideBar } from './Components/SideBar'
+import { TodoList } from './Components/TodoList'
 import { SignIn } from './Components/SignIn'
 import { SignUp } from './Components/SignUp'
 // import { ForgotPassword } from './Components/ForgotPassword'
 // import { temp } from './ultis/ultis'
 import { Modal } from './Components/Modal'
+import { TodoEditor } from './Components/TodoEditor';
 
 class App extends React.Component {
   constructor(props) {
@@ -59,14 +60,14 @@ class App extends React.Component {
       <div className="App">
         <Navigation />
         <div className="main">
-          {/* <SideBar profilePic={this.state.avatar} signOut={this.signOut} /> */}
+          <SideBar 
+          // profilePic={this.state.avatar} signOut={this.signOut}
+           />
           {
             // location[this.state.at]
-            // <SignIn/>
-            <SignUp/>
+            // <TodoEditor/>
+            <TodoList/>
           }
-
-
         </div>
       </div>
 

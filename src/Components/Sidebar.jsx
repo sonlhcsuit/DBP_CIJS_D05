@@ -1,26 +1,19 @@
 import React from 'react'
 import '../assets/css/SideBar.css'
-// import { getUser } from '../Controllers/TodoControllers'
 
 export function SideBar(props) {
-    
+    const profilePic = props.profilePic || 'https://firebasestorage.googleapis.com/v0/b/mindx-cijs.appspot.com/o/pokeball.png?alt=media&token=5ed18a00-8ab0-4737-8d21-996a35640673'
     return (
-        <div className="sidebar border container col">
-            <div className="avatar-cont container middle">
-                <img className="avatar-image" src={props.profilePic} />
-            </div>
-            <div className="option-cont container col">
-                <div className="option" style={{ color: "red" }}>
+        <div className="border sidebar-cont ">
+                <img className="profile-image" src={profilePic} />
+                <div className="option">
                     <i className="fal fa-user fa-2x"></i>
                     <p> Account</p>
                 </div>
                 <div className="option " onClick={props.signOut}>
                     <i className="fal fa-sign-out fa-2x"></i>
-
                     <p > Sign Out</p>
                 </div>
-            </div>
-
         </div>
     )
 }
