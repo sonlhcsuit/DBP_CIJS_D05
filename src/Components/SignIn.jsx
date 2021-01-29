@@ -17,13 +17,11 @@ export class SignIn extends React.Component {
     handleSubmit() {
         signInUltis(this.state)
             .then(val => {
-                this.setState({notifMessage:'Sign In success'})
-
-                // alert('Sign In success')
-                // alert(val)
+                this.setState({ user: val })
+                this.setState({ notifMessage: 'Sign In success' })
             })
             .catch(er => {
-                this.setState({notifMessage:er.message})
+                this.setState({ notifMessage: er.message })
             })
     }
     handleChange(e, type) {
@@ -32,11 +30,16 @@ export class SignIn extends React.Component {
     }
     render() {
         const modal = this.state.notifMessage ?
-            <Modal cancel={()=>this.setState({notifMessage:''})}>
+            <Modal cancel={() => {
+                this.setState({ notifMessage: '' })
+                if (this.state.notifMessage === 'Sign In success') {
+                    localStorage.setItem('user', JSON.stringify(this.state.user))
+                    window.location.assign('/')
+                }
+            }}>
                 <p>
                     {this.state.notifMessage}
                 </p>
-
             </Modal> : null
         return (
             <>

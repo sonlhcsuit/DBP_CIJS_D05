@@ -20,7 +20,7 @@ export function signUpUltis({
                 username,
                 password,
                 joinDate: new Date().toDateString(),
-                avatarUrl: 'https://firebasestorage.googleapis.com/v0/b/mindx-cijs.appspot.com/o/pokeball.png?alt=media&token=5ed18a00-8ab0-4737-8d21-996a35640673',
+                avatar: 'https://firebasestorage.googleapis.com/v0/b/mindx-cijs.appspot.com/o/pokeball.png?alt=media&token=5ed18a00-8ab0-4737-8d21-996a35640673',
                 dob: null,
             })
         })

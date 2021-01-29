@@ -4,88 +4,120 @@ import "../assets/css/TodoList.css";
 // import { getTodoOf, updateTodo, addTodo, removeTodo, completeTodo } from '../Controllers/TodoControllers'
 import { Todo } from './Todo'
 import { TodoEditor } from './TodoEditor'
-
+import { subscribeTodo, updateTodo, removeTodo, addTodo } from '../ultis/TodoUltis'
 export class TodoList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            userId: this.props.userId,
-            todos: [{
-                title:'Nani',
-                created:'2134',
-                content:'this is test todo'
-            }]
+            isSubscribed: false,
+            selectedTodo: null,
+            unsubF: null,
+            // for modal
+            notifMessage: '',
+            todos: []
         }
-        // console.log(this.props)
-        // this.editTodo = this.editTodo.bind(this)
-        // this.saveTodo = this.saveTodo.bind(this)
-        // this.completeTodo = this.completeTodo.bind(this)
-        // this.removeTodo = this.removeTodo.bind(this)
     }
-    // get all of todos of user, then update data of state of todolist
-    // componentDidMount() {
-    //     if (this.state.userId === undefined) return
-    //     getTodoOf(this.state.userId).then(data => {
-    //         this.setState({
-    //             todos: data
-    //         })
-    //     })
-    // }
-    // // when user click save, update data at local and firebase
-    // saveTodo(indx, newTodo) {
-    //     if (newTodo === null) {
-    //         this.setState({ isEdit: false })
-    //     } else {
-    //         let todos = this.state.todos
-    //         // check if index larger than todo list
-    //         // if yes, mean add new todo
-    //         if (indx === todos.length) {
-    //             todos.push('')
-    //             newTodo.id = indx
-    //             newTodo.userId = this.state.userId
-    //             newTodo.created = new Date(Date.now()).toDateString()
-    //             newTodo.isComplete = false
-    //             todos[indx] = newTodo
-    //             addTodo(newTodo)
-    //                 .then(fbindx => {
-    //                     todos[indx].id = fbindx
-    //                     // update todo with auto-indx of firebase
-    //                     updateTodo(todos[indx])
-    //                     this.setState({ todos: todos, isEdit: false })
-    //                 })
-    //         } else {
-    //             // no, which means update
-    //             todos[indx] = newTodo
-    //             updateTodo(newTodo)
-    //                 .then(() => {
-    //                     this.setState({ todos: todos, isEdit: false })
-    //                 })
-    //         }
-    //     }
-    // }
-    // removeTodo(indx) {
-    //     let todos = this.state.todos
-    //     removeTodo(todos[indx].id)
-    //     delete todos[indx]
-    //     this.setState({ todos: todos })
-    // }
-    // completeTodo(indx) {
-    //     let todos = this.state.todos
-    //     let status = !todos[indx].isComplete
-    //     todos[indx].isComplete = status
-    //     this.setState({ todos: todos })
-    //     updateTodo(todos[indx])
 
-    // }
-    // // open editor and load local data
-    // editTodo(indx) {
-    //     this.setState({ isEdit: true, selectedindx: indx })
-    // }
+    // when user click save, update on firebase
+    saveTodo = (edittedTodo) => {
+        let type = null
+        // mean close
+        if (edittedTodo === null) type = 'close'
+        // mean add
+        if (!edittedTodo?.id) type = 'added'
+        // mean modified
+        else if (edittedTodo?.id) type = 'modified'
+
+        switch (type) {
+            case 'added':
+                addTodo(edittedTodo, this.props)
+                    .catch(error => {
+                        console.error(error)
+                    })
+                break;
+            case 'modified':
+                updateTodo(edittedTodo)
+                    .catch(error => {
+                        console.error(error)
+                    })
+                break;
+
+            default:
+                console.log('some thing goes wrong')
+        }
+        this.setState({ selectedTodo: null })
+
+    }
+    edit = (todo) => {
+        this.setState({ selectedTodo: todo })
+    }
+    completeTodo = (todo) => {
+        todo.isComplete = !todo?.isComplete
+        updateTodo(todo)
+            .catch(error => {
+                console.error(error)
+            })
+    }
+    // realtime listener
+    subscribe = (userId) => {
+        let unsubs = subscribeTodo(userId, (data, type) => {
+            switch (type) {
+                case 'added':
+                    this.setState(oldState => {
+                        const newState = JSON.parse(JSON.stringify(oldState))
+                        newState.todos.push(data)
+                        return newState
+                    })
+                    break;
+                case 'modified':
+                    this.setState(oldState => {
+                        const newState = JSON.parse(JSON.stringify(oldState))
+                        const ids = newState.todos?.map(obj => obj.id)
+                        const indx = ids?.indexOf(data.id)
+                        if (indx !== -1 && indx !== undefined) {
+                            newState.todos[indx] = data
+                            // console.log(indx)
+                            // console.log(newState)
+                        }
+                        return newState
+                    })
+                    break;
+                case 'removed':
+                    this.setState(oldState => {
+                        const newState = JSON.parse(JSON.stringify(oldState))
+                        const ids = newState.todos?.map(obj => obj.id)
+                        const indx = ids?.indexOf(data.id)
+                        if (indx !== -1 && indx !== undefined) {
+                            newState.todos = [].concat(newState.todos.slice(0, indx), newState.todos.slice(indx + 1, newState.todos.length))
+                        }
+                        console.log('removed')
+                        return newState
+                    })
+                    break;
+            }
+        })
+        this.setState({ unsubF: unsubs })
+    }
+    componentWillUnmount() {
+        // no need because we will create a new app by force reload, when you use react router, 
+        // unsubscribe when navigate to another Route
+        console.log('Unsubscribe')
+        this.state.unsubF()
+    }
+    componentDidUpdate() {
+        if (!this.state.isSubscribed) {
+            this.setState({ isSubscribed: true }, () => {
+                this.subscribe(this.props.id)
+            })
+        }
+    }
+
     render() {
         // edit
-        if (this.state.isEdit) {
+        // console.log(this.props)
+        if (this.state.selectedTodo) {
             return (
-                <TodoEditor {...this.state.todos[this.state.selectedindx]} indx={this.state.selectedindx} saveTodo={this.saveTodo} />)
+                <TodoEditor {...this.state.selectedTodo} saveTodo={this.saveTodo} />)
         } else {
             // if no edit
             // console.log(this.state)
@@ -93,26 +125,25 @@ export class TodoList extends React.Component {
                 // <Todoeditor {...a}/>
                 <div className="border todolist todo-cont">
                     {
-                        
-                    this.state.todos.map((todo, index) => {
-
-                        console.log(todo)
-                        return (
-                            <Todo {...todo} key={index}
-                            //  edit={() => this.editTodo(index)} complete={() => this.completeTodo(index)} remove={() => this.removeTodo(index)} 
-                            />
-                        )
-                    })
-
+                        this.state.todos.map((todo, index) => {
+                            // console.log(todo)
+                            return (
+                                <Todo {...todo} key={index}
+                                    edit={() => this.edit(todo)}
+                                    complete={() => this.completeTodo(todo)}
+                                    remove={() => removeTodo(todo)}
+                                />
+                            )
+                        })
                     }
-                    <div className="add" onClick={() => this.editTodo(this.state.todos.length)}>
+                    <div className="add" onClick={() => this.edit({})}>
                         <i className="fal fa-plus fa-2x" ></i>
                     </div>
-
                 </div>
             )
         }
-
     }
+
 }
+
 // export {TodoList}

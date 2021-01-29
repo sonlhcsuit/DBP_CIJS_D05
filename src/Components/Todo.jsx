@@ -8,7 +8,6 @@ export function Todo(props) {
                 <h1>{title}</h1>
                 <small style={{ color: "gray" }}>{created}</small>
             </div>
-            <hr style={{width:'80%'}}></hr>
             <div className={`todo-content ${props.isComplete ? 'complete' : ''}`}>
                 <p>{content}</p>
             </div>
