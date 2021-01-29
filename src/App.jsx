@@ -5,21 +5,20 @@ import { SideBar } from './Components/SideBar'
 import { TodoList } from './Components/TodoList'
 import { SignIn } from './Components/SignIn'
 import { SignUp } from './Components/SignUp'
-// import { ForgotPassword } from './Components/ForgotPassword'
-// import { temp } from './ultis/ultis'
 import { Modal } from './Components/Modal'
 import { TodoEditor } from './Components/TodoEditor';
-
+let availableRoute = ['/signin', '/signup', '/forgot', '/',]
 class App extends React.Component {
   constructor(props) {
     super(props)
     // always go to sign in first
-    // this.state = { userId: null, at: 'signIn' }
-    // this.signOut = this.signOut.bind(this)
-    // this.signUp = this.signUp.bind(this)
-    // this.forgotPassword = this.forgotPassword.bind(this)
-    // this.signIn = this.signIn.bind(this)
-
+    let pathName = window.location.pathname
+    if (availableRoute.indexOf(pathName) == -1) pathName = '/'
+    this.state = { userId: null, at: pathName }
+  }
+  isLoggedIn() {
+    const user = localStorage.getItem('user')
+    return !user
   }
   // switch to component
   // signUp() {
@@ -47,26 +46,29 @@ class App extends React.Component {
   //   }
   // }
   render() {
-    // base on where you are, render appropriate component
-    // let location = {
-    //   'signUp': <SignUp signIn={this.signIn} />,
-    //   'signIn': <SignIn forgotPassword={this.forgotPassword} signUp={this.signUp} />,
-    //   'forgotPassword': <ForgotPassword signIn={this.signIn} signUp={this.signUp} />,
-    //   'home': <Todolist userId={this.state.userId} />
-    // }
+    console.log('render App')
 
-    // console.log(this.state)
+    // If user are at home and didnt logged in , navigate to sign in 
+    if (this.state.at == '/' && this.isLoggedIn()) {
+      window.location.assign('/signin')
+      return <></>
+    }
+
+    let location = {
+      '/signup': <SignUp signIn={this.signIn} />,
+      '/signin': <SignIn forgotPassword={this.forgotPassword} signUp={this.signUp} />,
+      '/': <TodoList userId={this.state.userId} />
+
+    }
     return (
       <div className="App">
         <Navigation />
         <div className="main">
-          <SideBar 
-          // profilePic={this.state.avatar} signOut={this.signOut}
-           />
+          {/* <SideBar 
+          profilePic={this.state.avatar} signOut={this.signOut}
+           /> */}
           {
-            // location[this.state.at]
-            // <TodoEditor/>
-            <TodoList/>
+            location[this.state.at]
           }
         </div>
       </div>

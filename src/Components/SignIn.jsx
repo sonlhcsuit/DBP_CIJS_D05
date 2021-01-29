@@ -1,7 +1,6 @@
 import React from 'react';
 import '../assets/css/SignIn.css'
 import { Modal } from './Modal'
-
 import { signInUltis } from '../ultis/userUltis'
 
 export class SignIn extends React.Component {
@@ -56,7 +55,7 @@ export class SignIn extends React.Component {
                     </div>
                     <div className="signin-comp opt ">
                         {/* <a href="/forgot" >Forgot Password?</a> */}
-                        <a href="/signup">Sign Up</a>
+                        <a href="/signup" >Sign Up</a>
                     </div>
                     <div className="signin-comp">
                         <input type="button" value="Sign In" onClick={this.handleSubmit} />
