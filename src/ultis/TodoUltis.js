@@ -17,6 +17,9 @@ export function subscribeTodo(userId, callback) {
                     case 'removed':
                         callback(doc.doc.data(), 'removed')
                         break;
+                    default:
+                        console.log('Some thing went wrong')
+                        break;
                 }
             })
         })
@@ -27,16 +30,16 @@ export function addTodo(todo, user) {
 
     return db.collection('todos').add({
         content,
-        created:new Date(Date.now()).toDateString(),
-        isComplete:false,
+        created: new Date(Date.now()).toDateString(),
+        isComplete: false,
         title,
-        userId:id
+        userId: id
     })
         .then((doc) => {
             return doc.id
         })
-        .then(id=>{
-            return db.collection('todos').doc(id).update({id:id})
+        .then(id => {
+            return db.collection('todos').doc(id).update({ id: id })
         })
         .catch(err => {
             console.log(err.message)

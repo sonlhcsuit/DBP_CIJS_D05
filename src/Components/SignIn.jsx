@@ -43,7 +43,7 @@ export class SignIn extends React.Component {
             </Modal> : null
         return (
             <>
-                <form className="signin-cont border" onKeyDown={(e) => e.key == 'Enter' ? this.handleSubmit() : null}>
+                <form className="signin-cont border" onKeyDown={(e) => e.key === 'Enter' ? this.handleSubmit() : null}>
                     <div className="signin-comp title">
                         <h1>Sign In</h1>
                         <small>Please sign in for better experience</small>

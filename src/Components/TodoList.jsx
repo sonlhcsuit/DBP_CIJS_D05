@@ -94,6 +94,8 @@ export class TodoList extends React.Component {
                         return newState
                     })
                     break;
+                default:
+                    console.log('Some thing went wrong')
             }
         })
         this.setState({ unsubF: unsubs })

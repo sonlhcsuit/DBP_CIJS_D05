@@ -13,7 +13,7 @@ class App extends React.Component {
     let pathName = window.location.pathname
     console.log(pathName)
 
-    if (availableRoute.indexOf(pathName) == -1) pathName = '/'
+    if (availableRoute.indexOf(pathName) === -1) pathName = '/'
     this.state = {
       at: pathName
     }
@@ -35,7 +35,7 @@ class App extends React.Component {
     console.log('render App')
 
     // If user are at home and didnt logged in , navigate to sign in 
-    if (this.state.at == '/' && !this.isLoggedIn()) {
+    if (this.state.at === '/' && !this.isLoggedIn()) {
       window.location.assign('/signin')
       return <></>
     }
