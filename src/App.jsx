@@ -1,31 +1,32 @@
 import React from 'react'
-import './App.css';
-import { Navigation } from './Components/Navigation'
 import { SignIn } from './Components/SignIn'
 import { SignUp } from './Components/SignUp'
-
-import { Modal } from './Components/Modal'
+import './App.css';
 
 class App extends React.Component {
   constructor(props) {
     super(props)
-    // always go to sign in first
-    // this.state = { userId: null, at: 'signIn' }
-    // this.signOut = this.signOut.bind(this)
-    // this.signUp = this.signUp.bind(this)
-    // this.forgotPassword = this.forgotPassword.bind(this)
-    // this.signIn = this.signIn.bind(this)
 
   }
- 
-  render() {
+  navigate = (path) => {
+    window.history.pushState(null, null, path)
+    this.forceUpdate()
+  }
 
+  render() {
+    const path = window.location.pathname == '/' ? '/signin' : window.location.pathname
+
+    const options = {
+      '/signup': <SignUp navigate={this.navigate} />,
+      '/signin': <SignIn navigate={this.navigate} />
+
+      // '/forgot':<For
+    }
     return (
       <div className="App">
-        <Navigation />
         <div className="main">
           {
-            <SignUp/>
+            options[path]
           }
         </div>
       </div>

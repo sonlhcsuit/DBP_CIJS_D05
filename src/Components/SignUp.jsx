@@ -92,7 +92,7 @@ export class SignUp extends React.Component {
                             <input type="checkbox" checked={this.state.agree} onChange={(e) => this.handleChange(e, 'agree')} />
                             <label htmlFor="">I agree for the terms and conditions</label>
                         </div>
-                        <a href="/signin">Sign In</a>
+                        <a  onClick={()=>this.props.navigate('/signin')}>Sign In</a>
                     </div>
                     <div className="signup-comp">
                         <input type="button" value="Sign Up" onClick={this.handleSubmit} />

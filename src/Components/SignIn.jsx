@@ -1,8 +1,7 @@
 import React from 'react';
 import '../assets/css/SignIn.css'
 import { Modal } from './Modal'
-
-import { signInUltis } from '../ultis/userUltis'
+import { signInUltis,signUpGoogle } from '../ultis/userUltis'
 
 export class SignIn extends React.Component {
     constructor(props) {
@@ -18,13 +17,13 @@ export class SignIn extends React.Component {
     handleSubmit() {
         signInUltis(this.state)
             .then(val => {
-                this.setState({notifMessage:'Sign In success'})
+                this.setState({ notifMessage: 'Sign In success' })
 
                 // alert('Sign In success')
                 // alert(val)
             })
             .catch(er => {
-                this.setState({notifMessage:er.message})
+                this.setState({ notifMessage: er.message })
             })
     }
     handleChange(e, type) {
@@ -33,7 +32,7 @@ export class SignIn extends React.Component {
     }
     render() {
         const modal = this.state.notifMessage ?
-            <Modal cancel={()=>this.setState({notifMessage:''})}>
+            <Modal cancel={() => this.setState({ notifMessage: '' })}>
                 <p>
                     {this.state.notifMessage}
                 </p>
@@ -41,7 +40,7 @@ export class SignIn extends React.Component {
             </Modal> : null
         return (
             <>
-                <form className="signin-cont border" onKeyDown={(e) => e.key == 'Enter' ? this.handleSubmit() : null}>
+                <form className="signin-cont" onKeyDown={(e) => e.key === 'Enter' ? this.handleSubmit() : null}>
                     <div className="signin-comp title">
                         <h1>Sign In</h1>
                         <small>Please sign in for better experience</small>
@@ -55,8 +54,10 @@ export class SignIn extends React.Component {
                         <input type="password" name="" id="password" onInput={(e) => this.handleChange(e, 'password')} placeholder="Enter your password" />
                     </div>
                     <div className="signin-comp opt ">
-                        {/* <a href="/forgot" >Forgot Password?</a> */}
-                        <a href="/signup">Sign Up</a>
+                        <a onClick={signUpGoogle} >or Google</a>
+
+                        <a onClick={()=>this.props.navigate('/signup')}>Sign Up</a>
+
                     </div>
                     <div className="signin-comp">
                         <input type="button" value="Sign In" onClick={this.handleSubmit} />
